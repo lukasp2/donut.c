@@ -2,6 +2,7 @@
 #include <math.h>
 #include <string.h>
 #include <unistd.h>
+#include "matrix_ops.h"
 
 int main() {
     float A = 0, B = 0;
@@ -32,11 +33,11 @@ int main() {
                 float n = sin(B); // 
 		float m = cos(B); // 
 
-                float D = 1 / (c * R * e + f * g + 5); // view distance
+                float D = 1 / (c * R * e + f * g + 5);
 
                 float t = c * R * g - f * e; // some alias prob
-
-		// project 3D point on 2D (x, y) plane
+ 
+		// projected 3D point on 2D (x, y) plane
                 int x = 40 + 30 * D * (l * R * m - t * n);
                 int y = 12 + 15 * D * (l * R * n + t * m);
 
