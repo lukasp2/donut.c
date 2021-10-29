@@ -4,6 +4,21 @@
 #include <unistd.h>
 #include "matrix_ops.h"
 
+float LIGHT_SOURCE[3] = {0, 1, -1}; // location of light source
+float DIST_SCREEN = 4; // distance from observer to the screen
+float DIST_SHAPE = 10; // distance from observer to the shape
+
+// gets light intensity for a point
+float get_luminance(float const normal[]) {
+    return dot_product(LIGHT_SOURCE, normal, 3);
+}
+
+// projects 3D point on 2D plane
+void project(float* const xyz) {
+    xyz[0] = DIST_SCREEN * xyz[0] / (DIST_SHAPE + xyz[2]);
+    xyz[1] = DIST_SCREEN * xyz[1] / (DIST_SHAPE + xyz[2]);
+}
+
 int main() {
     float A = 0, B = 0;
     float z[1760];

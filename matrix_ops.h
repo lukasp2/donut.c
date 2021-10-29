@@ -20,6 +20,14 @@ float** multiply(float** const m1, int m1r, int m1c,
     return result;
 }
 
+// calculates the dot product of v1 and v2 of size k
+float dot_product(float const v1[], float const v2[], int k) {
+    float result = 0.0;
+    for (int i = 0; i < k; i++)
+        result += v1[i]*v2[i];
+    return result;
+}
+
 // rotates point p by r around x
 void rotate_x(float** p, float r) {
     float m[3][3] = {{1, 0,       0     },
@@ -29,39 +37,24 @@ void rotate_x(float** p, float r) {
 }
 
 // rotates point p by r around y
-void y_rotation(float** p, float r) {
-    float m[3][3] = {{1, 0,       0     },
-		     {0, cos(r),  sin(r)},
-		     {0, -sin(r), cos(r)}};
+void rotate_y(float** p, float r) {
+    float m[3][3] = {{cos(r),  0, sin(r)},
+		     {0,       1, 0     },
+		     {-sin(r), 0, cos(r)}};
     multiply(p, 1, 3, (float**)m, 3, 3);
 }
 
 // rotates point p by r around z
-void z_rotation(float** p, float r) {
+void rotate_z(float** p, float r) {
     float m[3][3] = {{cos(r),  sin(r), 0},
 		     {-sin(r), cos(r), 0},
 		     {0,       0,      1}};
     multiply(p, 1, 3, (float**)m, 3, 3);
 }
 
-// gets light intensity for a point
-float get_luminance(float u, float v) {
-    // 1. set light source location
-    int light_source[3] = {0, 1, -1};
-    
-    // 2. get normal vector of point
-    int normal_v[] = {};
-    
-    // 3. get dot product of ls - nv
-    float dot_product = 0;
-    
-    return dot_product;
-}
-
-// projects 3D point on 2D plane
-void project(int* const xyz) {
-    int k1 = 4; // z dist origin to screen
-    int k2 = 10; // z dist origin to object
-    xyz[0] = k1 * xyz[0] / (k2 + xyz[2]);
-    xyz[1] = k1 * xyz[1] / (k2 + xyz[2]);
+// gets a normal vector for a point on the shape given u, v
+float** get_normal_vector(float** shape, float u, float v) {
+    float point[1][3] = {{cos(u), sin(u), 0}};
+    float** normal_v = multiply((float**)point, 1, 3, shape, 3, 3);
+    return normal_v;
 }
