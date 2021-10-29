@@ -21,35 +21,35 @@ float** multiply(float** const m1, int m1r, int m1c,
 }
 
 // calculates the dot product of v1 and v2 of size k
-float dot_product(float const v1[], float const v2[], int k) {
+float dot_product(float** const v1, float** const v2, int k) {
     float result = 0.0;
     for (int i = 0; i < k; i++)
-        result += v1[i]*v2[i];
+        result += v1[0][i] * v2[0][i];
     return result;
 }
 
 // rotates point p by r around x
-void rotate_x(float** p, float r) {
+float** rotate_x(float** p, float r) {
     float m[3][3] = {{1, 0,       0     },
 		     {0, cos(r),  sin(r)},
 		     {0, -sin(r), cos(r)}};
-    multiply(p, 1, 3, (float**)m, 3, 3);
+    return multiply(p, 1, 3, (float**)m, 3, 3);
 }
 
 // rotates point p by r around y
-void rotate_y(float** p, float r) {
+float** rotate_y(float** p, float r) {
     float m[3][3] = {{cos(r),  0, sin(r)},
 		     {0,       1, 0     },
 		     {-sin(r), 0, cos(r)}};
-    multiply(p, 1, 3, (float**)m, 3, 3);
+    return multiply(p, 1, 3, (float**)m, 3, 3);
 }
 
 // rotates point p by r around z
-void rotate_z(float** p, float r) {
+float** rotate_z(float** p, float r) {
     float m[3][3] = {{cos(r),  sin(r), 0},
 		     {-sin(r), cos(r), 0},
 		     {0,       0,      1}};
-    multiply(p, 1, 3, (float**)m, 3, 3);
+    return multiply(p, 1, 3, (float**)m, 3, 3);
 }
 
 // gets a normal vector for a point on the shape given u, v
