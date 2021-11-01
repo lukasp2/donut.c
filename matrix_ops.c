@@ -26,7 +26,8 @@ void matrix_free(Matrix* m) {
     free(m);
 }
 
-void matrix_set(Matrix* m, double const values[m->r][m->c]) {
+void matrix_set(Matrix* m,
+		double const values[m->r][m->c]) {
     for (int i = 0; i < m->r; ++i) {
         for (int ii = 0; ii < m->c; ++ii) {
 	    m->values[i][ii] = values[i][ii];
@@ -50,7 +51,9 @@ void matrix_rotate(Matrix* m, Axis const a, Radian const r) {
     matrix_free(rotation_matrix);
 }
 
-void matrix_multiply(const Matrix* const m1, const Matrix* const m2, Matrix* const result) {
+void matrix_multiply(const Matrix* const m1,
+		     const Matrix* const m2,
+		     Matrix* const result) {
     assert(m1->c == m2->r);
     for (int r = 0; r < m1->r; ++r) {
 	for (int c = 0; c < m2->c; ++c) {
@@ -63,7 +66,8 @@ void matrix_multiply(const Matrix* const m1, const Matrix* const m2, Matrix* con
     }
 }
 
-double matrix_get_dot_product(const Matrix* const m1, const Matrix* const m2) {
+double matrix_get_dot_product(const Matrix* const m1,
+			      const Matrix* const m2) {
     assert(m1->c == m2->c);
     double result = 0.0;
     for (int i = 0; i < m1->c; i++)
@@ -98,9 +102,9 @@ double matrix_get_luminance(Matrix* const m,
     return matrix_get_dot_product(normal, light_source);
 }
 
-// fprintf(stderr, "point:\n"); matrix_print(m2);
-void matrix_print(const Matrix* const m) {
-    fprintf(stderr, "[%d][%d]", m->r, m->c);
+void matrix_print(const Matrix* const m,
+		  const char* const str) {
+    fprintf(stderr, "%s [%d][%d]:\n", str, m->r, m->c);
     for (int r = 0; r < m->r; ++r) {
 	fprintf(stderr, "\t");
 	for (int c = 0; c < m->c; ++c) {

@@ -58,6 +58,6 @@ double matrix_get_luminance(Matrix* const m,
 			   const double v);
 
 // prints a matrix
-void matrix_print(const Matrix* const m);
+void matrix_print(const Matrix* const m, const char* const str);
 
 #endif /* MATRIX_H */
